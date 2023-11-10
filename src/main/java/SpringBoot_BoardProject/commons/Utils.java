@@ -1,4 +1,4 @@
-package SpringBoot_BoardProject.commons;
+package org.koreait.commons;
 
 import org.springframework.stereotype.Component;
 
@@ -12,16 +12,16 @@ public class Utils {
 
     static {
         validationsBundle = ResourceBundle.getBundle("messages.validations");
-        errorsBundle  = ResourceBundle.getBundle("messages.errors");
+        errorsBundle = ResourceBundle.getBundle("messages.errors");
     }
 
-    public static String getMessage(String code, String bundleType){
+    public static String getMessage(String code, String bundleType) {
         bundleType = Objects.requireNonNullElse(bundleType, "validation");
-        ResourceBundle bundle = bundleType.equals("errors") ? errorsBundle : validationsBundle;
+        ResourceBundle bundle = bundleType.equals("error")? errorsBundle:validationsBundle;
         try {
-            return  bundle.getString(code);
-        }catch (Exception e) {
-            return  null;
+            return bundle.getString(code);
+        } catch (Exception e) {
+            return null;
         }
     }
 }
