@@ -1,5 +1,6 @@
 package SpringBoot_BoardProject.entities;
 
+import SpringBoot_BoardProject.commons.constants.MemberType;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
@@ -18,6 +19,8 @@ public class Member {
     private String userNm;
 
     private String mobile;
+
+    private MemberType mtype = MemberType.USER;
 
     private LocalDateTime regDt;
 
