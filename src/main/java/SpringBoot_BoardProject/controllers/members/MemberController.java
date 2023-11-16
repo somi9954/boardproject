@@ -2,13 +2,16 @@ package SpringBoot_BoardProject.controllers.members;
 
 import SpringBoot_BoardProject.commons.MemberUtil;
 import SpringBoot_BoardProject.commons.Utils;
+import SpringBoot_BoardProject.entities.BoardData;
 import SpringBoot_BoardProject.entities.Member;
 import SpringBoot_BoardProject.models.member.MemberInfo;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +22,12 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
+@Transactional
 public class MemberController {
 
     private final Utils utils;
     private final MemberUtil memberUtil;
+    private final EntityManager em;
 
     @GetMapping("/join")
     public String join() {
@@ -41,12 +46,16 @@ public class MemberController {
     @ResponseBody
     @GetMapping("/info")
     public void info(){
-        Member member = memberUtil.getMember();
-        if (memberUtil.isLogin()) {
-            log.info(member.toString());
-        }
-        log.info("로그인 여부 : {}", memberUtil.isLogin());
+        BoardData data = BoardData.builder()
+                .subject("제목")
+                .content("내용")
+                .build();
 
+        em.persist(data);
+        em.flush();
+
+        data.setSubject(("(수정)제목"));
+        em.flush();
     }
   /*  public void info() {
         MemberInfo member =(MemberInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
