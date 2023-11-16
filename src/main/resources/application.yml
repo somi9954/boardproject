@@ -1,6 +1,11 @@
 server:
   port: 3000
 
+  spring:
+    # 프로필 설정
+    profiles:
+      active: dev
+
 spring:
   # 데이터베이스 설정
   datasource:
@@ -8,6 +13,19 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:orcl
     username: PROJECT
     password: _aA123456
+
+  # JPA 설정
+  jpa:
+    properties:
+      hibernate:
+        # 실행되는 쿼리를 콘솔에 출력
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.OracleDialect
+
+    hibernate:
+      ddlAuto: create
 
   # 파일 업로드 설정
   servlet:
@@ -41,5 +59,7 @@ file:
 logging:
   level:
     org:
-      springframework:
-        jdbc: trace
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
