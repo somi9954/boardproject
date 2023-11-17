@@ -2,12 +2,16 @@ package SpringBoot_BoardProject.controllers.members;
 
 import SpringBoot_BoardProject.commons.MemberUtil;
 import SpringBoot_BoardProject.commons.Utils;
+import SpringBoot_BoardProject.commons.constants.MemberType;
 import SpringBoot_BoardProject.entities.BoardData;
 import SpringBoot_BoardProject.entities.Member;
 import SpringBoot_BoardProject.models.member.MemberInfo;
+import SpringBoot_BoardProject.repositories.BoardDataRepository;
+import SpringBoot_BoardProject.repositories.MemberRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequestMapping("/member")
@@ -28,6 +35,12 @@ public class MemberController {
     private final Utils utils;
     private final MemberUtil memberUtil;
     private final EntityManager em;
+
+    @Autowired
+    private BoardDataRepository boardDataRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @GetMapping("/join")
     public String join() {
@@ -45,28 +58,53 @@ public class MemberController {
 
     @ResponseBody
     @GetMapping("/info")
-    public void info(){
-        BoardData data = BoardData.builder()
+    public void info() {
+        Member member = Member.builder()
+                .email("user01@test.org")
+                .password("123456")
+                .userNm("사용자01")
+                .mtype(MemberType.USER)
+                .build();
+        memberRepository.saveAndFlush(member);
+
+        BoardData item = BoardData.builder()
                 .subject("제목")
                 .content("내용")
+                .member(member)
                 .build();
+        boardDataRepository.saveAndFlush(item);
 
-        em.persist(data);
-        em.flush();
+        em.clear();
 
-        data.setSubject(("(수정)제목"));
-        em.flush();
+        BoardData data = boardDataRepository.findById(1L).orElse(null);
+
+        Member member2 = data.getMember();
+        String email = member2.getEmail(); // 2차 쿼리 실행
+        System.out.println(email);
+
     }
-  /*  public void info() {
-        MemberInfo member =(MemberInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        log.info(member.toString());
-    }*/
-   /* public void info(@AuthenticationPrincipal MemberInfo memberInfo){
-        log.info(memberInfo.toString());
-    }*/
-/*    public void info(Principal principal){
-        String email = principal.getName();
-        log.info(email);
-    }*/
+    @ResponseBody
+    @GetMapping("/info2")
+    public void info2() {
+        Member member = Member.builder()
+                .email("user01@test.org")
+                .password("123456")
+                .userNm("사용자01")
+                .mtype(MemberType.USER)
+                .build();
+        memberRepository.saveAndFlush(member);
+
+        List<BoardData> items = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            BoardData item = BoardData.builder()
+                    .subject("제목" + i)
+                    .content("내용" + i)
+                    .member(member)
+                    .build();
+            items.add(item);
+        }
+
+        boardDataRepository.saveAllAndFlush(items);
+    }
 }

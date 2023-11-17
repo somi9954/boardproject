@@ -6,10 +6,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import lombok.Data;
 
-
 @Data
 @Entity
-@IdClass(BoardViewId.class)
+@IdClass(SpringBoot_BoardProject.entities.BoardViewId.class)
 public class BoardView {
     @Id
     private Long seq;

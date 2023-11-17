@@ -1,9 +1,9 @@
 package SpringBoot_BoardProject.entities;
 
-import SpringBoot_BoardProject.commons.constants.MemberType;
+import SpringBoot_BoardProject.entities.BoardData;
 import jakarta.persistence.*;
 import lombok.*;
-
+import SpringBoot_BoardProject.commons.constants.MemberType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class Member extends Base {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
-    private List<SpringBoot_BoardProject.entities.BoardData> items = new ArrayList<>();
+    private List<BoardData> items = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name="profile_seq")

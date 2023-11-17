@@ -1,9 +1,9 @@
-package org.koreait.jpaex;
+package SpringBoot_BoardProject.jpaex;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Test;
-import org.koreait.entities.BoardData;
+import SpringBoot_BoardProject.entities.BoardData;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;

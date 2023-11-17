@@ -1,9 +1,9 @@
-package org.koreait.jpaex;
+package SpringBoot_BoardProject.jpaex;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.koreait.entities.BoardData;
-import org.koreait.repositories.BoardDataRepository;
+import SpringBoot_BoardProject.entities.BoardData;
+import SpringBoot_BoardProject.repositories.BoardDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;

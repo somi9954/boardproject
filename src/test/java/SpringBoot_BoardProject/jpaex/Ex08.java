@@ -1,14 +1,15 @@
-package org.koreait.jpaex;
+package SpringBoot_BoardProject.jpaex;
 
+import SpringBoot_BoardProject.commons.constants.MemberType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.koreait.commons.constants.MemberType;
-import org.koreait.entities.BoardData;
-import org.koreait.entities.Member;
-import org.koreait.repositories.BoardDataRepository;
-import org.koreait.repositories.MemberRepository;
+import SpringBoot_BoardProject.commons.constants.MemberType;
+import SpringBoot_BoardProject.entities.BoardData;
+import SpringBoot_BoardProject.entities.Member;
+import SpringBoot_BoardProject.repositories.BoardDataRepository;
+import SpringBoot_BoardProject.repositories.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
