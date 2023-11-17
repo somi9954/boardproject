@@ -1,16 +1,11 @@
 package SpringBoot_BoardProject.entities;
 
+import SpringBoot_BoardProject.entities.BaseMember;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Builder
@@ -29,9 +24,10 @@ public class BoardData extends BaseMember {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userNo")
+    @JoinColumn(name="userNo")
     private Member member;
 
-   //@ManyToMany(fetch = FetchType.LAZY)
+    //@ManyToMany(fetch=FetchType.LAZY)
     //private List<HashTag> tags = new ArrayList<>();
+
 }

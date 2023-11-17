@@ -4,6 +4,7 @@ import SpringBoot_BoardProject.commons.constants.MemberType;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,17 +38,10 @@ public class Member extends Base {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
-    private List<BoardData> items = new ArrayList<>();
+    private List<SpringBoot_BoardProject.entities.BoardData> items = new ArrayList<>();
 
-
-    @ToString.Exclude
     @OneToOne
-    @JoinColumn(name = "profile_seq")
-    private MemberProfile profile;
+    @JoinColumn(name="profile_seq")
+    private SpringBoot_BoardProject.entities.MemberProfile profile;
 
-
-    /*
-    @Temporal()
-    private Date date;
-     */
 }
