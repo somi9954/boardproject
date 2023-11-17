@@ -4,6 +4,9 @@ import SpringBoot_BoardProject.commons.constants.MemberType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @Entity
@@ -32,6 +35,15 @@ public class Member extends Base {
     @Enumerated(EnumType.STRING)
     private MemberType mtype = MemberType.USER;
 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    private List<BoardData> items = new ArrayList<>();
+
+
+    @ToString.Exclude
+    @OneToOne
+    @JoinColumn(name = "profile_seq")
+    private MemberProfile profile;
 
 
     /*
