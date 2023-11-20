@@ -1,5 +1,6 @@
-package org.koreait.configs;
+package SpringBoot_BoardProject.config;
 
+import SpringBoot_BoardProject.commons.interceptors.CommonInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
@@ -8,15 +9,38 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableConfigurationProperties(org.koreait.configs.FileUploadConfig.class)
+@EnableConfigurationProperties(FileUploadConfig.class)
 public class MvcConfig implements WebMvcConfigurer {
 
     @Autowired
-    private org.koreait.configs.FileUploadConfig fileUploadConfig;
+    private FileUploadConfig fileUploadConfig;
+    @Autowired
+    private CommonInterceptor commonInterceptor;
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/")
+                .setViewName("front/main/index");
+
+        registry.addViewController("/mypage")
+                .setViewName("front/main/index");
+
+        registry.addViewController("/admin")
+                .setViewName("front/main/index");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+       registry.addInterceptor(commonInterceptor)
+               .addPathPatterns("/**");
+    }
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -27,14 +51,18 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Bean
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+
         return new HiddenHttpMethodFilter();
     }
 
+    @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
-        ms.setBasenames("messages.commons", "messages.validations", "messages.errors");
+        ms.addBasenames("messages.commons", "messages.validations", "messages.errors");
 
         return ms;
     }
+
+
 }
