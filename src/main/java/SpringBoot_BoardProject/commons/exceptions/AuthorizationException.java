@@ -1,5 +1,6 @@
 package SpringBoot_BoardProject.commons.exceptions;
 
+import SpringBoot_BoardProject.commons.Utils;
 import org.springframework.http.HttpStatus;
 
 /**

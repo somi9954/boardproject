@@ -1,4 +1,4 @@
-package SpringBoot_BoardProject.koreait.entities;
+package SpringBoot_BoardProject.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

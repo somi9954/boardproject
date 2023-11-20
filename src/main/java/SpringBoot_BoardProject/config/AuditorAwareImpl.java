@@ -1,6 +1,6 @@
-package SpringBoot_BoardProject.koreait.configs;
+package SpringBoot_BoardProject.config;
 
-import SpringBoot_BoardProject.koreait.models.member.MemberInfo;
+import SpringBoot_BoardProject.models.member.MemberInfo;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

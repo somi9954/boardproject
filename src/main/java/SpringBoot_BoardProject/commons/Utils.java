@@ -25,7 +25,7 @@ public class Utils {
 
     public static String getMessage(String code, String bundleType) {
         bundleType = Objects.requireNonNullElse(bundleType, "validation");
-        ResourceBundle bundle = bundleType.equals("error")? errorsBundle:validationsBundle;
+        ResourceBundle bundle = bundleType.equals("error") ? errorsBundle:validationsBundle;
         try {
             return bundle.getString(code);
         } catch (Exception e) {
@@ -45,13 +45,45 @@ public class Utils {
     }
 
     public String tpl(String tplPath) {
-        return String.format("%s/" + tplPath, isMobile()?"mobile":"front");
+        return String.format("%s/" + tplPath, isMobile() ? "mobile" : "front");
     }
 
-    public static void loginInit(HttpSession session) {
+    public static void loginInit(HttpSession session){
         session.removeAttribute("email");
         session.removeAttribute("NotBlank_email");
         session.removeAttribute("NotBlank_password");
         session.removeAttribute("globalError");
+    }
+
+    /**
+     * 단일 요청 데이터 조회
+     */
+    public String getParam(String name) {
+        return request.getParameter(name);
+    }
+
+    /**
+     * 복수개 요청 데이터 조회
+     *
+     */
+    public String[] getParams(String name) {
+        return request.getParameterValues(name);
+    }
+
+
+    public static int getNumber(int num, int defaultValue) {
+        return num <= 0 ? defaultValue : num;
+    }
+
+    /**
+     * 비회원 구분 UID
+     * 비회원 구분은 IP + 브라우저 종류
+     *
+     */
+    public int guestUid() {
+        String ip = request.getRemoteAddr();
+        String ua = request.getHeader("User-Agent");
+
+        return Objects.hash(ip, ua);
     }
 }
