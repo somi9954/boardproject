@@ -1,19 +1,16 @@
 package SpringBoot_BoardProject.controllers.members;
 
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import SpringBoot_BoardProject.commons.MemberUtil;
 import SpringBoot_BoardProject.commons.Utils;
 import SpringBoot_BoardProject.commons.constants.MemberType;
 import SpringBoot_BoardProject.entities.BoardData;
 import SpringBoot_BoardProject.entities.Member;
-import SpringBoot_BoardProject.models.member.MemberInfo;
 import SpringBoot_BoardProject.repositories.BoardDataRepository;
 import SpringBoot_BoardProject.repositories.MemberRepository;
-import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,5 +102,17 @@ public class MemberController {
         }
 
         boardDataRepository.saveAllAndFlush(items);
+    }
+
+    @ResponseBody
+    @GetMapping("/info3")
+    public void info3() {
+        List<BoardData> items = boardDataRepository.findAll();
+        for (BoardData item : items) {
+            Member member = item.getMember();
+            String email = member.getEmail();
+            System.out.println(email);
+        }
+        System.out.println("111");
     }
 }

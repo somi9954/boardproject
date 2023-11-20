@@ -2,53 +2,88 @@ package SpringBoot_BoardProject.jpaex;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import SpringBoot_BoardProject.commons.constants.MemberType;
+import SpringBoot_BoardProject.entities.BoardData;
 import SpringBoot_BoardProject.entities.Member;
+import SpringBoot_BoardProject.models.board.BoardListService;
+import SpringBoot_BoardProject.repositories.BoardDataRepository;
+import SpringBoot_BoardProject.repositories.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 @Transactional
 @TestPropertySource(properties = "spring.profiles.active=test")
 public class Ex02 {
 
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private BoardDataRepository boardDataRepository;
+
     @PersistenceContext
     private EntityManager em;
 
-    @Test
-    void test1() {
+    @Autowired
+    private BoardListService listService;
+
+    @BeforeEach
+    void init() {
         Member member = Member.builder()
                 .email("user01@test.org")
-                .password("123456")
+                .password("12345678")
                 .userNm("사용자01")
-                .mobile("010")
                 .mtype(MemberType.USER)
+                .mobile("0100000000")
                 .build();
 
-        em.persist(member);
-        em.flush();
+        memberRepository.saveAndFlush(member);
 
-        Member member2 = em.find(Member.class, member.getUserNo());
-        System.out.println(member2); // 수정 전
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        List<BoardData> items = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            BoardData item = BoardData.builder()
+                    .subject("제목" + i)
+                    .content("내용" + i)
+                    .member(member)
+                    .build();
+            items.add(item);
         }
 
-        member2.setUserNm("(수정)사용자01");
-        em.flush();
+        boardDataRepository.saveAllAndFlush(items);
+        em.clear();
+    }
 
-        member2 = em.find(Member.class, member.getUserNo());
-        System.out.println(member2); // 수정 후
-
+    @Test
+    void test1() {
+        List<BoardData> items = boardDataRepository.findAll(); // 10개 // 1차 쿼리
+        for (BoardData item : items) {
+            Member member = item.getMember();
+            String email = member.getEmail(); // 2차 쿼리
+            System.out.println(email);
+        }
     }
 
     @Test
     void test2() {
+        List<BoardData> items = boardDataRepository.getList2();
 
+    }
+
+    @Test
+    void test3() {
+        List<BoardData> items = listService.getList();
+    }
+
+    @Test
+    void test4() {
+        List<BoardData> items = boardDataRepository.findBySubjectContaining("목");
     }
 }

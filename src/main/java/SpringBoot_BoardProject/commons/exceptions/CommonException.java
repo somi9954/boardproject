@@ -3,7 +3,7 @@ package SpringBoot_BoardProject.commons.exceptions;
 import org.springframework.http.HttpStatus;
 
 public class CommonException extends RuntimeException{
-    private HttpStatus status;
+    private final HttpStatus status;
 
     public CommonException(String message) {
         this(message, HttpStatus.INTERNAL_SERVER_ERROR); // 500

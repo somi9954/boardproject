@@ -1,16 +1,13 @@
 package SpringBoot_BoardProject.controllers;
 
-import SpringBoot_BoardProject.commons.exceptions.CommonException;
-import SpringBoot_BoardProject.commons.rest.JSONData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import SpringBoot_BoardProject.commons.exceptions.CommonException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -20,15 +17,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@ControllerAdvice("org.koreait.controllers")
+@ControllerAdvice("SpringBoot_BoardProject.controllers")
 public class CommonController {
 
     @ExceptionHandler(Exception.class)
     public String errorHandler(Exception e, Model model, HttpServletRequest request, HttpServletResponse response) {
 
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        if (e instanceof CommonException) {
-            CommonException commonException = (CommonException)e;
+        if (e instanceof CommonException commonException) {
             status = commonException.getStatus();
         }
 
@@ -48,7 +44,7 @@ public class CommonController {
 
         e.printStackTrace(pr);
 
-        String errorMessage = ((StringWriter)writer).toString();
+        String errorMessage = writer.toString();
         log.error(errorMessage);
 
         return "error/common";

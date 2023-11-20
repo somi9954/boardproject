@@ -1,8 +1,8 @@
 package SpringBoot_BoardProject.models.member;
 
-import SpringBoot_BoardProject.entities.Member;
 import lombok.Builder;
 import lombok.Data;
+import SpringBoot_BoardProject.entities.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

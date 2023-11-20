@@ -11,8 +11,8 @@ import java.util.ResourceBundle;
 @Component
 @RequiredArgsConstructor
 public class Utils {
-    private static ResourceBundle validationsBundle;
-    private static ResourceBundle errorsBundle;
+    private static final ResourceBundle validationsBundle;
+    private static final ResourceBundle errorsBundle;
 
     private final HttpServletRequest request;
 
@@ -45,6 +45,7 @@ public class Utils {
     }
 
     public String tpl(String tplPath) {
+
         return String.format("%s/" + tplPath, isMobile()?"mobile":"front");
     }
 

@@ -1,8 +1,8 @@
 package SpringBoot_BoardProject.commons;
 
-import SpringBoot_BoardProject.entities.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import SpringBoot_BoardProject.entities.Member;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +15,6 @@ public class MemberUtil {
     }
 
     public Member getMember() {
-        return (Member) session.getAttribute("loginMember");
+        return (Member)session.getAttribute("loginMember");
     }
-
 }

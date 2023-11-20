@@ -1,11 +1,11 @@
 package SpringBoot_BoardProject.entities;
 
-import SpringBoot_BoardProject.entities.BaseMember;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import SpringBoot_BoardProject.entities.BaseMember;
 
 @Data
 @Builder
@@ -26,8 +26,5 @@ public class BoardData extends BaseMember {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userNo")
     private Member member;
-
-    //@ManyToMany(fetch=FetchType.LAZY)
-    //private List<HashTag> tags = new ArrayList<>();
 
 }

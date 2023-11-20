@@ -1,11 +1,10 @@
 package SpringBoot_BoardProject.models.member;
 
-import SpringBoot_BoardProject.commons.Utils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.boot.util.Instantiator;
+import SpringBoot_BoardProject.commons.Utils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -44,5 +43,4 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
         response.sendRedirect(request.getContextPath() + "/member/login");
     }
-
 }

@@ -1,11 +1,11 @@
 package SpringBoot_BoardProject.models.member;
 
-import SpringBoot_BoardProject.commons.Utils;
-import SpringBoot_BoardProject.entities.Member;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import SpringBoot_BoardProject.commons.Utils;
+import SpringBoot_BoardProject.entities.Member;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -27,7 +27,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         /*
          * 로그인 성공시 페이지 이동
-         * 요청 데이터 redirectURL 값이 있으면 이동 없으면 메인페이지(/)
+         * 요청 데이터 redirectURL값이 있으면 이동 없으면 메인페이지(/)
          */
         String redirectURL = Objects.requireNonNullElse(request.getParameter("redirectURL"), "/");
         response.sendRedirect(request.getContextPath() + redirectURL);

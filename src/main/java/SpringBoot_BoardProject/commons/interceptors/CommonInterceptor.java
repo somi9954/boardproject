@@ -1,9 +1,9 @@
 package SpringBoot_BoardProject.commons.interceptors;
 
-import SpringBoot_BoardProject.commons.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import SpringBoot_BoardProject.commons.Utils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -22,15 +22,15 @@ public class CommonInterceptor implements HandlerInterceptor {
         /* PC, Mobile 수동 변경 처리 S */
         String device = request.getParameter("device");
         if (device != null && !device.isBlank()) {
-            session.setAttribute("device", device.toLowerCase().equals("mobile")?"mobile":"pc");
+            session.setAttribute("device", device.equalsIgnoreCase("mobile")?"mobile":"pc");
         }
-
         /* PC, Mobile 수동 변경 처리 E */
 
-        /* 로그인 페이지 아닐 경우 로그인 유효성 검사 세션 삭제 처리 **/
+        /* 로그인 페이지 아닐 경우 로그인 유효성 검사 세션 삭제 처리 */
         String URI = request.getRequestURI();
         if (URI.indexOf("/member/login") == -1) {
             Utils.loginInit(session);
         }
+
     }
 }
