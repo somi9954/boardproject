@@ -1,6 +1,7 @@
-package SpringBoot_BoardProject.config;
+package SpringBoot_BoardProject.configs;
 
 import SpringBoot_BoardProject.commons.interceptors.CommonInterceptor;
+import SpringBoot_BoardProject.commons.interceptors.SiteConfigInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
@@ -9,11 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.stereotype.Service;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -28,10 +27,16 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private CommonInterceptor commonInterceptor;
 
+    @Autowired
+    private SiteConfigInterceptor siteConfigInterceptor;
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(commonInterceptor)
+                .addPathPatterns("/**");
+
+        registry.addInterceptor(siteConfigInterceptor)
                 .addPathPatterns("/**");
 
     }

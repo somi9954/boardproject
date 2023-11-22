@@ -1,4 +1,4 @@
-package SpringBoot_BoardProject.config;
+package SpringBoot_BoardProject.configs;
 
 import SpringBoot_BoardProject.models.member.LoginFailureHandler;
 import SpringBoot_BoardProject.models.member.LoginSuccessHandler;

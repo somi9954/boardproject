@@ -1,4 +1,4 @@
-package SpringBoot_BoardProject.config;
+package SpringBoot_BoardProject.configs;
 
 import SpringBoot_BoardProject.models.member.MemberInfo;
 import org.springframework.data.domain.AuditorAware;

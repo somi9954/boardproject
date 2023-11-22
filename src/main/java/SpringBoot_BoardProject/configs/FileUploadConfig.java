@@ -1,4 +1,4 @@
-package SpringBoot_BoardProject.config;
+package SpringBoot_BoardProject.configs;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

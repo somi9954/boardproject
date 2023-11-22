@@ -9,6 +9,7 @@ spring:
     properties:
       hibernate:
         # 실행되는 쿼리 콘솔 출력
+        globally_quoted_identifiers: true
         show_sql: true
         # 콘솔 창에 출력되는 쿼리를 가독성 좋게 포맷팅
         format_sql: true
